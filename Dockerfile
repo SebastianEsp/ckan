@@ -21,6 +21,7 @@ RUN apt-get -q -y update \
         git-core \
         vim \
         wget \
+        dos2unix \
     && apt-get -q clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -53,7 +54,8 @@ RUN ckan-pip install -U pip && \
     chmod +x /ckan-entrypoint.sh && \
     chown -R ckan:ckan $CKAN_HOME $CKAN_VENV $CKAN_CONFIG $CKAN_STORAGE_PATH && \
     ckan-pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
-    ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-harvest/pip-requirements.txt
+    ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-harvest/pip-requirements.txt && \
+    dos2unix /ckan-entrypoint.sh
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]
 
