@@ -1,5 +1,5 @@
 # See CKAN docs on installation from Docker Compose on usage
-FROM debian:stretch
+FROM debian:jessie
 MAINTAINER Open Knowledge
 
 # Install required system packages
@@ -51,11 +51,17 @@ RUN ckan-pip install -U pip && \
     ln -s $CKAN_VENV/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini && \
     cp -v $CKAN_VENV/src/ckan/contrib/docker/ckan-entrypoint.sh /ckan-entrypoint.sh && \
     chmod +x /ckan-entrypoint.sh && \
-    chown -R ckan:ckan $CKAN_HOME $CKAN_VENV $CKAN_CONFIG $CKAN_STORAGE_PATH
+    chown -R ckan:ckan $CKAN_HOME $CKAN_VENV $CKAN_CONFIG $CKAN_STORAGE_PATH && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
+    ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-harvest/pip-requirements.txt
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]
 
 USER ckan
 EXPOSE 5000
+
+VOLUME [ "/var/lib/ckan" ]
+VOLUME [ "/usr/lib/ckan" ]
+VOLUME [ "/etc/ckan" ]
 
 CMD ["ckan-paster","serve","/etc/ckan/production.ini"]
