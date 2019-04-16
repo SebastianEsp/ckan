@@ -27,6 +27,9 @@ full_stack = true
 cache_dir = /tmp/%(ckan.site_id)s/
 beaker.session.key = ckan
 
+ckan.harvest.mq.type = redis
+ckan.harvest.mq.hostname = redis
+
 # This is the secret token that the beaker library uses to hash the cookie sent
 # to the client. `paster make-config` generates a unique value for this each
 # time it generates a config file.
@@ -101,7 +104,7 @@ ckan.site_id = default
 #       Add ``datapusher`` to enable DataPusher
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_view image_view recline_view
+ckan.plugins = stats text_view image_view recline_view datastore datapusher harvest ckan_harvester
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
@@ -162,7 +165,7 @@ ckan.feeds.author_link =
 
 # Make sure you have set up the DataStore
 
-#ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 #ckan.datapusher.url = http://127.0.0.1:8800/
 #ckan.datapusher.assume_task_stale_after = 3600
 
