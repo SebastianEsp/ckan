@@ -72,5 +72,8 @@ ckan-paster --plugin=ckan db init -c "${CKAN_CONFIG}/production.ini"
 
 paster --plugin=ckanext-harvest harvester initdb --config=/etc/ckan/production.ini
 
+sed '/^[app:main]/a ckan.harvest.mq.type = redis' /etc/ckan/production.ini
+sed '/^ckan.harvest.mq.type = redis/a ckan.harvest.mq.hostname = redis' /etc/ckan/production.ini
+
 exec "$@"
 
