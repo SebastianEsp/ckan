@@ -58,7 +58,8 @@ RUN ckan-pip install -U pip && \
     ckan-pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
     ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-harvest/pip-requirements.txt && \
     dos2unix /ckan-entrypoint.sh && \
-    cp -v $CKAN_VENV/src/ckan/supervisor/ckan_harvesting.conf /etc/supervisor/conf.d/ckan_harvesting.conf && \
+    cp -v $CKAN_VENV/src/ckan\supervisor/ckan_harvesting.conf /etc/supervisor/conf.d/ckan_harvesting.conf && \
+    ls /etc/supervisor/conf.d/ && \
     cp -v $CKAN_VENV/src/ckan/supervisor/crontab /crontab
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]

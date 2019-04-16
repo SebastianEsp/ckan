@@ -76,9 +76,9 @@ ckan-paster --plugin=ckanext-harvest harvester initdb --config=/etc/ckan/product
 
 #START CKAN HARVESTER SUPPORTVISER TASKS
 echo "1"
+ls /etc/supervisor/conf.d/  
 supervisorctl reread
 echo "2"
-ls /etc/supervisor/conf.d/  
 supervisorctl add ckan_gather_consumer
 echo "3"
 supervisorctl add ckan_fetch_consumer
