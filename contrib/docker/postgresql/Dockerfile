@@ -19,3 +19,4 @@ VOLUME [ "/var/lib/postgresql/data" ]
 ADD docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 
 RUN dos2unix /docker-entrypoint-initdb.d/00_create_datastore.sh
+RUN psql -U ckan
