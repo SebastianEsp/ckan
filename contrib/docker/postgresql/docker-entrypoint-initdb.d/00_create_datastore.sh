@@ -6,3 +6,5 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE DATABASE datastore OWNER ckan ENCODING 'utf-8';
     GRANT ALL PRIVILEGES ON DATABASE datastore TO ckan;
 EOSQL
+
+psql -U ckan
