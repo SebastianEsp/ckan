@@ -104,11 +104,13 @@ ckan.site_id = default
 #       Add ``datapusher`` to enable DataPusher
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_view image_view recline_view datastore datapusher harvest ckan_harvester
+ckan.plugins = stats text_view image_view recline_view datastore datapusher harvest ckan_harvester dcat dcat_rdf_harvester dcat_json_harvester dcat_json_interface structured_data geojson_view wmts_view geonetwork_harvester linechart barchart piechart basicgrid spatial_query spatial_metadata
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
 ckan.views.default_views = image_view text_view recline_view
+
+ckan.spatial.srid = 4326
 
 # Customize which text formats the text_view plugin will show
 #ckan.preview.json_formats = json

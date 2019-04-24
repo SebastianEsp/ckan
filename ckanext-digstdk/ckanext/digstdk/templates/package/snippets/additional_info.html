@@ -1,0 +1,102 @@
+<section class="additional-info">
+    <script>
+        function downloadMetadataXML() {
+            window.location.assign(window.location.href + ".xml")
+        }
+        function downloadMetadataCSV() {
+            window.location.assign(window.location.href + ".csv")
+        }
+    </script>
+    <div>
+        <h3 style="display: inline; float: left">{{ _('Additional Info') }}</h3>
+
+        <div class="btn-group"  style="display: inline; float: right; margin-top: 5px">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                {{ _('Eksport') }}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" style="min-width:0">
+                <li><a href="#" onclick="downloadMetadataXML();return false;"><i class="icon-external-link" style="margin-right: 10px;"></i>XML</a></li>
+                <li><a href="#" onclick="downloadMetadataCSV();return false;"><i class="icon-external-link" style="margin-right: 10px;"></i>CSV</a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th scope="col">{{ _('Field') }}</th>
+            <th scope="col">{{ _('Value') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% block package_additional_info %}
+
+            {% if pkg_dict.organization %}
+                <tr>
+                    <th scope="row" class="dataset-label">{{ _('Organization') }}</th>
+                    <td class="dataset-details" property="rdf:value">{{ pkg_dict.organization.title }}</td>
+                </tr>
+            {% endif %}
+
+            {% if pkg_dict.url %}
+                <tr>
+                    <th scope="row" class="dataset-label">{{ _('Source') }}</th>
+                    {% if h.is_url(pkg_dict.url) %}
+                        <td class="dataset-details" property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
+                    {% else %}
+                        <td class="dataset-details" property="foaf:homepage">{{ pkg_dict.url }}</td>
+                    {% endif %}
+                    <td class="dataset-details" property="foaf:homepage"></td>
+                </tr>
+            {% endif %}
+
+            {% block extras scoped %}
+                {% for extra in h.sorted_extras(pkg_dict.extras) %}
+                    {% set key, value = extra %}
+                    {% if key in ['accrualPeriodicity','frequency'] %}
+                        {% set nyTxt = 'Opdateringsfrekvens' %}
+                        {% set nyVal = h.getSelectedTerm(h.get_vocab_for_field('frequency'), value) %}
+                    {% else %}
+                        {% set nyTxt = '' %}
+                        {% set nyVal = '' %}
+                    {% endif %}
+                    {% if key not in ['title', 'notes', 'organization', 'url'] %}
+                        <tr rel="dc:relation" resource="_:extra{{ i }}">
+                            <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key) }}</th>
+                            {% if key == 'page' %}
+                                <td class="dataset-details" property="rdf:value">
+                                    {{ h.link_to(value, value, rel='page', target='_blank') }}
+                                </td>
+                            {% else %}
+                                {% if key == 'conforms_to' %}
+                                    <td class="dataset-details" property="rdf:value">
+                                        {{ h.link_to(value, value, rel='conforms_to', target='_blank') }}
+                                    </td>
+                                {% else %}
+                                    {% if value %}
+                                        <td class="dataset-details" property="rdf:value">{{ _(value) }}</td>
+                                    {% else %}
+                                        <td class="dataset-details" property="rdf:value"></td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+
+            {% if c.pkg_dict.groups %}
+                <tr>
+                    <th scope="row" class="dataset-label">{{ _('Temaer') }}</th>
+                    <td class="dataset-details" property="rdf:value">
+                        {% for group in c.pkg_dict.groups %}
+                            {{ group.title }}<br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+
+        {% endblock %}
+        </tbody>
+    </table>
+</section>

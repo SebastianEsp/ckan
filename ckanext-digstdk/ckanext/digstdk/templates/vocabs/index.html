@@ -1,0 +1,38 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Begrebslister') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Begrebslister'), controller='ckanext.digstdk.controller:VocabController', action='index' %}</li>
+{% endblock %}
+
+{% block page_header %}{% endblock %}
+
+{% block page_primary_action %}
+  {% if h.check_access('group_create') %}
+    {% link_for _('Tilføj begrebsliste'), controller='ckanext.digstdk.controller:VocabController', action='new', class_='btn btn-primary', icon='plus-sign-alt' %}
+  {% endif %}
+{% endblock %}
+
+{% block primary_content_inner %}
+  <h1 class="hide-heading">{{ _('Begrebsliser') }}</h1>
+  {% block groups_search_form %}
+  {% endblock %}
+  {% block groups_list %}
+    {% if c.page.items or request.params %}
+      {% if c.page.items %}
+        {% snippet "vocabs/snippets/vocab_list.html", groups=c.page.items %}
+      {% endif %}
+    {% else %}
+      <p class="empty">
+        {{ _('Der er ikke oprettet nogen begrebslister') }}.
+        {% if h.check_access('group_create') %}
+          {% link_for _('HVad med at oprettet en begrebsliste?'), controller='ckanext.digstdk.controller:VocabController', action='new' %}</a>.
+        {% endif %}
+      </p>
+    {% endif %}
+  {% endblock %}
+  {% block page_pagination %}
+  {% endblock %}
+{% endblock %}
+

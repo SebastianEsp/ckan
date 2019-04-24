@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block subtitle %}{{ _('Opret tema') }}{% endblock %}
+
+{% block breadcrumb_link %}{{ h.nav_link(_('Opret et tema'), controller='group', action='edit', id=c.group.name) }}{% endblock %}
+
+{% block page_heading %}{{ _('Opret et tema') }}{% endblock %}
+

@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block save_text %}
+  {%- if action == "edit" -%}
+    {{ _('Opdatere tema') }}
+  {%- else -%}
+    {{ _('Opret et tema') }}
+  {%- endif -%}
+{% endblock %}
+

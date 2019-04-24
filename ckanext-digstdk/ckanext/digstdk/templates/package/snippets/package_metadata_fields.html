@@ -1,0 +1,140 @@
+{% ckan_extends %}
+
+{% block package_metadata_fields_url %}
+    {{ form.input('url', label=_('Source'), id='field-url', placeholder=_('http://example.com/dataset.json'), value=data.url, error=errors.url, classes=['control-medium']) }}
+  {% endblock %}
+
+  {% block package_metadata_fields_version %}
+  {% endblock %}
+
+  {% block package_metadata_author %}
+  {% endblock %}
+
+  {% block package_metadata_fields_maintainer %}
+  {% endblock %}
+
+
+{% block custom_fields %}
+    {% set fieldRendred = false %}	
+	{% set extraCounter = 10 %}
+    {% set subject = h.getFieldValue('subject',data) %}
+
+	{% for metadataName in h.getMetadataList() %}
+
+    {% if metadataName == 'subject' %}
+	 {% set fieldRendred = true %} 
+    <div class="control-group control-medium">
+        <label class="control-label" for="field-subject">{{ _('Opgave') }}</label>
+    <div class="controls">
+    <input type="hidden" class="js-example-basic-multiple" name="extras__7__value" value = "{{ subject }}" multiple="multiple" style="width: 535px;">
+    </input>
+    </div>
+    </div>
+
+  {% set vocab = h.get_vocab_for_field('subject') %}
+
+  <input type="hidden" name="extras__7__key" value="subject"/>
+{#  {% if vocab %}#}
+{#    {{ form.select('extras__7__value', label=_('Opgave'), id='field-subject', options=h.convertToOptions(vocab), selected=h.getSelectedTerm(vocab, h.getFieldValue('subject',data)), error=errors.subject) }}#}
+{#  {% else %}#}
+{#    {{ form.input('extras__7__value', label=_('Opgave'), id='field-subject', placeholder=_('00.00.00'), value=h.getFieldValue('subject',data), error=errors.subject, classes=['control-medium']) }}#}
+{#  {% endif %}#}
+	{% endif %}
+
+	{% if metadataName == 'personal' %}
+	 {% set fieldRendred = true %}
+  	 {% set vocab = h.get_vocab_for_field('personal') %}
+  {% set personal = h.getFieldValue('personal', data) %}
+  <input type="hidden" name="extras__2__key" value="personal"/>
+  {% if vocab %}
+    {{ form.select('extras__2__value', label=_('Følsomme oplysninger'), options=h.convertToOptions(vocab), selected='false', error=errors.personal) }}
+  {% else %}
+    {{ form.input('extras__2__value', label=_('Følsomme oplysninger'), id='field-personal', placeholder=_('true/false'), value=h.getFieldValue('personal',data), error=errors.personal) }}
+  {% endif %}
+	{% endif %}
+
+	{% if metadataName == 'confidential' %}
+	 {% set fieldRendred = true %}
+   {% set vocab = h.get_vocab_for_field('confidential') %}
+  <input type="hidden" name="extras__1__key" value="confidential"/>
+  {% if vocab %}
+    {{ form.select('extras__1__value', label=_('Fortrolige data'), options=h.convertToOptions(vocab), selected=h.getFieldValue('confidential',data), error=errors.confidential, classes=['control-medium']) }}
+  {% else %}
+    {{ form.input('extras__1__value', label=_('Fortrolige data'), id='field-confidential', value=h.getFieldValue('confidential',data), error=errors.confidential) }}
+  {% endif %}
+  {% endif %}
+
+	{% if metadataName == 'payment_required' %}
+	 {% set fieldRendred = true %}
+   {% set vocab = h.get_vocab_for_field('payment_required') %}
+  <input type="hidden" name="extras__0__key" value="payment_required"/>
+  {% if vocab %}
+    {{ form.select('extras__0__value', label=_('Betalingspålagt'), options=h.convertToOptions(vocab), selected=h.getFieldValue('payment_required',data), error=errors.payment_required, classes=['control-medium']) }}
+  {% else %}
+    {{ form.input('extras__0__value', label=_('Betalingspålagt'), id='field-payment_required', value=h.getFieldValue('payment_required',data), error=errors.payment_required) }}
+  {% endif %}
+  {% endif %}
+
+	{% if metadataName == 'page' %}
+	 {% set fieldRendred = true %}
+     <input type="hidden" name="extras__6__key" value="page"/>
+  {{ form.input('extras__6__value', label=_('Dokumentation'), id='field-page', placeholder=_('http://.....'), value=h.getFieldValue('page',data), error=errors.page, classes=['control-medium']) }}
+  {% endif %}
+
+ 	{% if metadataName == 'conforms_to' %}
+	 {% set fieldRendred = true %}
+     <input type="hidden" name="extras__8__key" value="conforms_to"/>
+  {{ form.input('extras__8__value', label=_('Henvisning til datamodel'), id='field-conformsTo', placeholder=_('http://data.gov.dk'), value=h.getFieldValue('conforms_to',data), error=errors.conforms_to, classes=['control-medium']) }}
+  {% endif %}
+
+  {% if metadataName == 'publisher_url' %}
+	 {% set fieldRendred = true %}
+     <input type="hidden" name="extras__3__key" value="publisher_uri"/>
+ {{ form.input('extras__3__value', label=_('Dataansvarlig organisation'), id='field-publisher', placeholder=_('  '), value=h.getFieldValue('publisher_uri',data), error=errors.publisher, classes=['control-medium']) }}
+  {% endif %}
+
+  {% if metadataName == 'frequency' %}
+	 {% set fieldRendred = true %}
+   {% set vocab = h.get_vocab_for_field('frequency') %}
+  <input type="hidden" name="extras__9__key" value="frequency"/>
+  {% if vocab %}
+     {{ form.select('extras__9__value', label=_('Opdateringsfrekvens'), options=h.convertToOptions(vocab), selected=h.getSelectedTerm(vocab, h.getFieldValue('frequency',data)), error=errors.accrualPeriodicity) }}
+  {% else %}
+    {{ form.input('extras__9__value', label=_('Opdateringsfrekvens'), id='field-accrualPeriodicity', value=h.getFieldValue('frequency',data), error=errors.frequency) }}
+  {% endif %}
+  {% endif %}
+
+  {% if metadataName == 'spatial' %}
+	 {% set fieldRendred = true %}
+     <input type="hidden" name="extras__4__key" value="spatial"/>
+ {{ form.input('extras__4__value', label=_('Datasættets administrative grænser'), id='field-spatial', placeholder=_('  '), value=h.getFieldValue('spatial',data), error=errors.publisher, classes=['control-medium']) }}
+ {% endif %}
+
+ {% if metadataName == 'language' %}
+	 {% set fieldRendred = true %}
+   {% set vocab = h.get_vocab_for_field('language') %}
+    <input type="hidden" name="extras__5__key" value="language"/>
+  {% if vocab %}
+    {{ form.select('extras__5__value', label=_('Sprog'), options=h.convertToOptions(vocab), selected=h.getFieldValue('language',data), error=errors.language) }}
+  {% else %}
+    {{ form.input('extras__5__value', label=_('Sprog'), id='field-language', placeholder=_('DAN'), value=h.getFieldValue('language',data), error=errors.language, classes=['control-medium']) }}
+  {% endif %}
+  {% endif %}
+
+  {% if fieldRendred == false and metadataName not in ['title', 'notes', 'organization', 'url'] %}
+   <input type="hidden" name="extras__{{ extraCounter }}__key" value="{{ metadataName }}"/>
+   {% set fieldName = 'extras__' ~ extraCounter ~ '__value' %}
+   {% set fieldId = 'field-'+metadataName %}
+   {% set vocab = h.get_vocab_for_field(metadataName) %}
+   {% set displayName = h.subst(metadataName, '_', ' ') %}   
+   {% if vocab %}
+    {{ form.select(fieldName, label=_(displayName), options=h.convertToOptions(vocab), selected=h.getFieldValue(metadataName,data), error=None) }}
+   {% else %}
+    {{ form.input(fieldName, label=_(displayName), id=fieldId, placeholder=_(displayName), value=h.getFieldValue(metadataName,data), error=None, classes=['control-medium']) }} 
+   {% endif %}
+   {% set extraCounter = extraCounter + 1 %}
+  {% endif %}
+
+ {% set fieldRendred = false %}
+  {% endfor %}
+{% endblock %}

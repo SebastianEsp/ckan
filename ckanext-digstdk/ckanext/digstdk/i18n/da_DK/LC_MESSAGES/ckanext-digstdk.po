@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da_DK\n"
+
+
+
+msgid "language"
+msgstr "Sprog"
+
+msgid "page"
+msgstr "Dokumentation"
+
+msgid "publisher"
+msgstr "Dataansvarlig organisation"
+
+msgid "subject"
+msgstr "Opgave"
+
+msgid "conforms_to"
+msgstr "Henvisning til datamodel"
+
+msgid "Conforms to"
+msgstr "Henvisning til datamodel"
+
+msgid "payment_required"
+msgstr "Betalingspålagt"
+
+msgid "personal"
+msgstr "Følsomme oplysninger"
+
+msgid "confidential"
+msgstr "Fortrolige data"
+
+msgid "documentation"
+msgstr "Dokumentation"
+
+msgid "Publisher URI"
+msgstr "Dataansvarlig organisation"
+
+msgid "publisher_uri"
+msgstr "Dataansvarlig organisation"
+
+msgid "theme"
+msgstr "Temaer"
+
+msgid "Frequency"
+msgstr "Opdateringsfrekvens"
+
+msgid "frequency"
+msgstr "Opdateringsfrekvens"
+
+msgid "Spatial URI"
+msgstr "Datasættets administrative grænser"
+
+msgid "spatial"
+msgstr "Datasættets administrative grænser"
+
+msgid "true"
+msgstr "Ja"
+
+msgid "false"
+msgstr "Nej"
+
+msgid "True"
+msgstr "Ja"
+
+msgid "False"
+msgstr "Nej"
+
+msgid "[\"http://publications.europa.eu/resource/authority/language/DAN\"]"
+msgstr "DAN"
+
+msgid "asNeeded"
+msgstr "Efter behov"
+
+msgid "quarterly"
+msgstr "Kvartalsvis"
+
+msgid "fortnightly"
+msgstr "Hver 14. dag"
+
+msgid "annually"
+msgstr "Årligt"
+
+msgid "monthly"
+msgstr "Månedligt"
+
+msgid "weekly"
+msgstr "Ugenligt"
+
+msgid "daily"
+msgstr "Dagligt"
+
+msgid "continual"
+msgstr "Kontinuerligt"
+
+msgid "notPlanned"
+msgstr "Ikke planlagt"
+
+msgid "irregular"
+msgstr "Uregelmæssigt"
+
+msgid "unknown"
+msgstr "Uvist"
+
+msgid "legalBasis"
+msgstr "Hjemmel"
+
+msgid "personalData"
+msgstr "Type af personoplysninger"
+
+msgid "Yes"
+msgstr "Almindelige"
+
+msgid "Yes-sensitive"
+msgstr "Følsomme"
+
+msgid "No"
+msgstr "Ingen"

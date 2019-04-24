@@ -1,0 +1,11 @@
+date, total_packages
+{% for row in c.num_packages_by_week %}
+  {{ row[0] }}, {{ row[2] }}
+{% endfor %}
+--------------------
+group, packages
+{% for row in c.largest_groups %}
+{{ row[0].name }}, {{ row[1] }}
+{% endfor %}
+
+ 

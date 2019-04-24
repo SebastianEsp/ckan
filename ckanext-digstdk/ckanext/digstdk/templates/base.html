@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="/css/digst.css" />
+{% endblock %}
+
+{%- block scripts %}
+  {{ super() }}
+  {% resource 'digstdk/form-integration.js'%}
+{% endblock %}

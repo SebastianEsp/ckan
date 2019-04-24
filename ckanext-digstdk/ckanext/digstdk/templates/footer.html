@@ -1,0 +1,27 @@
+<footer class="site-footer">
+  <div class="container">
+    {% block footer_content %}
+    <div class="footer-item upper digst-row">
+     <div class="digst-column">
+       <img src="https://arkitektur.digst.dk/sites/all/themes/digi/img/footer_1.png" alt="" style="float:right;" >
+     </div>
+     <div class="digst-column">
+       <img src="https://arkitektur.digst.dk/sites/all/themes/digi/img/footer_2.png" alt="" style="margin-left:10%;">
+     </div>
+     <div class="digst-column">
+       <img src="https://arkitektur.digst.dk/sites/all/themes/digi/img/footer_3.png" alt="" style="margin-left:10%;float:left;">
+     </div>
+    </div>
+  <div class="footer-item lower">
+    <a href="/pages/cookiepolicy">Cookie policy</a>
+  </div>
+  {% endblock %}
+  </div>
+
+  {% block footer_debug %}
+    {% if g.debug %}
+      {% include 'snippets/debug.html' %}
+    {% endif %}
+  {% endblock %}
+</footer>
+

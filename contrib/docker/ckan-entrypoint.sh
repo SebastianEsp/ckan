@@ -74,20 +74,13 @@ ckan-paster --plugin=ckan datastore set-permissions -c /etc/ckan/production.ini
 
 ckan-paster --plugin=ckanext-harvest harvester initdb --config=/etc/ckan/production.ini
 
-#START CKAN HARVESTER SUPPORTVISER TASKS
-echo "1"
-ls /etc/supervisor/conf.d/  
-supervisorctl reread
-echo "2"
-supervisorctl add ckan_gather_consumer
-echo "3"
-supervisorctl add ckan_fetch_consumer
-echo "4"
-supervisorctl start ckan_gather_consumer
-echo "5"
-supervisorctl start ckan_fetch_consumer
-echo "6"
-crontab -u ckan -l > /crontab
+#START CKAN HARVESTER PROCESSES
+
+ckan-paster --plugin=ckanext-harvest harvester gather_consumer --config=/etc/ckan/production.ini </dev/null &>/dev/null &
+
+ckan-paster --plugin=ckanext-harvest harvester fetch_consumer --config=/etc/ckan/production.ini </dev/null &>/dev/null &
+
+#crontab -u ckan /crontab.txt
 
 exec "$@"
 

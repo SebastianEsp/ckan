@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li>{{ h.nav_link(_('Temaer'), controller='group', action='index') }}</li>
+  <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_('Tilføj et tema'), controller='group', action='new') }}{% endblock %}</li>
+{% endblock %}
+
+{% block page_heading %}{{ _('Tema formular') }}{% endblock %}

@@ -57,12 +57,39 @@ RUN ckan-pip install -U pip && \
     chown -R ckan:ckan $CKAN_HOME $CKAN_VENV $CKAN_CONFIG $CKAN_STORAGE_PATH && \
     ckan-pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
     ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-harvest/pip-requirements.txt && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial && \
+    ckan-pip install -r $CKAN_VENV/src/ckanext-spatial/pip-requirements.txt && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-dcat.git#egg=ckanext-dcat && \
+    ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckanext-dcat/requirements.txt && \
+    ckan-pip install ckanext-geoview && \
+    ckan-pip install -e git+https://github.com/geosolutions-it/ckanext-geonetwork.git#egg=ckanext-geonetwork && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages && \
+    ckan-pip install lxml && \
+    ckan-pip install OWSLib==0.9.1 && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-viewhelpers.git#egg=ckanext-viewhelpers && \
+    ckan-pip install -e git+https://github.com/ckan/ckanext-basiccharts.git#egg=ckanext-basiccharts && \
+    ckan-pip install ckanapi && \
     dos2unix /ckan-entrypoint.sh && \
-    cp -v $CKAN_VENV/src/ckan\supervisor/ckan_harvesting.conf /etc/supervisor/conf.d/ckan_harvesting.conf && \
+    cp -v $CKAN_VENV/src/ckan/supervisor/ckan_harvesting.conf /etc/supervisor/conf.d/ckan_harvesting.conf && \
     ls /etc/supervisor/conf.d/ && \
-    cp -v $CKAN_VENV/src/ckan/supervisor/crontab /crontab
+    cp -v $CKAN_VENV/src/ckan/supervisor/crontab.txt /crontab.txt && \
+    chmod +x /crontab.txt
+
+RUN mkdir -p /var/lib/ckan/storage/uploads/group
+
+COPY ./import-themes-and-orgs.py $CKAN_VENV/src
+COPY ./theme-img/ /var/lib/ckan/storage/uploads/group
+COPY ./pages-header.html /src/ckanext-pages/ckanext/pages/themes/templates_main/header.html
+COPY ./ckanext-digstdk/ckanext/digstdk/templates/ckanext/stats/index.html $CKAN_VENV/src/ckan/ckanext/stats/templates/ckanext/stats/index.html
+COPY ./ckanext-dcat $CKAN_VENV/src/ckanext-dcat
+COPY ./ckanext-digstdk $CKAN_VENV/src/ckanext-digstdk
+
+WORKDIR $CKAN_VENV/src/ckanext-digstdk
+RUN python setup.py develop
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]
+
+WORKDIR $CKAN_VENV/src/ckan
 
 USER ckan
 EXPOSE 5000

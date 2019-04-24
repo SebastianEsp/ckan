@@ -1,0 +1,19 @@
+{#
+Display a grid of begrebslister items.
+
+vocabs - A list of vocabss.
+
+Example:
+
+    {% snippet "vocabs/snippets/vocab_list.html" %}
+
+#}
+{% block vocab_list %}
+<ul class="media-grid" data-module="media-grid">
+	{% block vocab_list_inner %}
+  {% for vocab in vocabs %}
+    {% snippet "vocabs/snippets/vocab_item.html", vocab=vocab, position=loop.index %}
+  {% endfor %}
+  {% endblock %}
+</ul>
+{% endblock %}

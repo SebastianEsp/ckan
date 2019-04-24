@@ -1,0 +1,32 @@
+{#
+Renders a media item for a group. This should be used in a list.
+
+group - A group dict.
+
+Example:
+
+    <ul class="media-grid">
+      {% for group in groups %}
+        {% snippet "group/snippets/group_item.html", group=group %}
+      {% endfor %}
+    </ul>
+#}
+{% block item %}
+<li class="media-item">
+  {% block item_inner %}
+  {% block title %}
+    <h3 class="media-heading">{{ vocab.display_name }}</h3>
+  {% endblock %}
+  {% block description %}
+    {% if vocab.description %}
+      <p>{{ h.markdown_extract(vocab.description, extract_length=80) }}</p>
+    {% endif %}
+  {% endblock %}
+ {% if group.user_member %}
+    <input name="vocab_remove.{{ vocab.id }}" value="{{ _('Slet') }}" type="submit" class="btn btn-danger btn-small media-edit" title="{{ _('Slet begrebsliste') }}"/>
+  {% endif %}
+</li>
+{% endblock %}
+{% if position is divisibleby 3 %}
+  <li class="clearfix js-hide"></li>
+{% endif %}

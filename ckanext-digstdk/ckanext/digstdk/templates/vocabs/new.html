@@ -1,0 +1,29 @@
+{% extends "page.html" %}
+{% import 'macros/form.html' as form %}
+{% set page_url = '/' + page %}
+{% set action_url = h.url_for(prefix + 'edit', page=page_url, **args) %}
+{% set cancel_url = h.url_for(prefix + 'index', **args) %}
+
+{% block subtitle %}{{ _('Begrebslister') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Begrebslister'), controller='ckanext.digstdk.controller:VocabController', action='index' %}</li>
+{% endblock %}
+
+{% block page_header %}{% endblock %}
+
+{% block page_primary_action %}
+<form class="form-horizontal" method="post" action="{{ action_url }}" data-module="basic-form">
+
+  {{ form.input('name', id='field-name', label=_('Name'), placeholder=title_placeholder, value=data.name, error=errors.name, classes=['control-full', 'control-large'], attrs={'data-module': 'slug-preview-target'}) }}
+  <div class="form-actions">
+      <a class="btn pull-left" href="{{ cancel_url }}">{{ _('Cancel') }}</a>
+      <button class="btn btn-primary" name="save" value="save" type="submit">{{ _('Tilføj og gem') }}</button>
+ </div>
+
+</form>
+{% endblock %}
+
+{% block primary_content_inner %}
+{% endblock %}
+

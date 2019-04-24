@@ -1,5 +1,0 @@
-# m  h  dom mon dow   command
-*/15 *  *   *   *     /usr/lib/ckan/bin/paster --plugin=ckanext-harvest harvester run --config=/etc/ckan/production.ini
-
-# m  h  dom mon dow   command
-  0  5  *   *   *     /usr/lib/ckan/bin/paster --plugin=ckanext-harvest harvester clean_harvest_log --config=/etc/ckan/production.ini

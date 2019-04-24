@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block custom_fields %}
+   {{ form.input('form_kode', label=_('Form kode'), value=data.form_kode, error=errors.form_kode) }} 
+{% endblock %}
+

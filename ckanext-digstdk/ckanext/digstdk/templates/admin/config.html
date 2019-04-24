@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block admin_form %}
+  {{ autoform.generate(form_items, data, errors) }}
+
+    <h3>Konfigureringsoptioner</h3>
+    {{ form.textarea('ckanext.digstdk.package_show_extras', id='field-ckanext.digstdk.package_show_extras', label=_('Vis metadatafelter'), value=data['ckanext.digstdk.package_show_extras'], error=errors['ckanext.digstdk.package_show_extras']) }}
+
+    {{ form.textarea('ckanext.digstdk.vocabularies', id='field-ckanext.digstdk.vocabularies', label=_('Begrebslister'), value=data['ckanext.digstdk.vocabularies'], error=errors['ckanext.digstdk.vocabularies'], placeholder='[begrebliste1]\nbegreber=begreb1;begreb1\nfelter=personale;paymentRequired') }}
+
+{% endblock %}
